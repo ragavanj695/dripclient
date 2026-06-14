@@ -1,0 +1,48 @@
+{% extends 'client/base.html' %}
+{% block content %}
+<div class="page">
+    <div class="header">
+        <div class="logo-glow">DRIP</div>
+        <h1>DRIP CLIENT</h1>
+        <div class="user-tag">User: {{ request.user.username|upper }}</div>
+    </div>
+
+    <div class="status-bar">
+        <span>⭐ 4.8/5</span>
+        <span style="color:#00ff00;">● 451 Online</span>
+        <span>🛡️ Anti-Ban</span>
+    </div>
+
+    <div class="credits-box">
+        <span style="font-size:0.75rem;font-weight:bold;">AVAILABLE CREDITS</span>
+        <span class="credit-count">{{ profile.credits }}</span>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Generate License Key</div>
+        <form method="POST" action="{% url 'dashboard' %}">
+            {% csrf_token %}
+            <select name="license_type" required>
+                <option value="">-- Select Plan --</option>
+                <option value="1">1 DAY ACCESS (1 Credit)</option>
+                <option value="5">7 DAY ACCESS (5 Credits)</option>
+                <option value="15">30 DAY ACCESS (15 Credits)</option>
+            </select>
+            <button type="submit" class="btn">Request Key Now</button>
+        </form>
+
+        {% if generated_key %}
+        <div class="key-result">
+            <span style="font-size:0.7rem;color:#888;">YOUR GENERATED KEY:</span>
+            <span class="key-text">{{ generated_key }}</span>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<nav class="bottom-nav">
+    <a class="nav-btn active" href="{% url 'dashboard' %}">🏠 Home</a>
+    <a class="nav-btn" href="{% url 'recharge' %}">💳 Buy</a>
+    <a class="nav-btn logout" href="{% url 'logout' %}">🚪 Logout</a>
+</nav>
+{% endblock %}

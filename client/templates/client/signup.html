@@ -1,0 +1,16 @@
+{% extends 'client/base.html' %}
+{% block content %}
+<div class="page">
+    <div class="login-card">
+        <h2 class="login-header">📝 REGISTER</h2>
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <input type="text" name="username" class="inp" placeholder="Username" required>
+            <input type="password" name="password" class="inp" placeholder="Password" required>
+            <input type="password" name="confirm" class="inp" placeholder="Confirm Password" required>
+            <button type="submit" class="btn">CREATE ACCOUNT</button>
+        </form>
+        <p class="footer-text">Have account? <a class="pink-link" href="{% url 'login' %}">Login</a></p>
+    </div>
+</div>
+{% endblock %}
